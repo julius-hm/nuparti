@@ -1,0 +1,7 @@
+# Requisitos para la librería:
+
+Se necesita tener instalada la versión de Python 3.6 (o superior).
+
+## Instalación
+
+No se requieren bibliotecas externas para utilizarla, por el momento.
