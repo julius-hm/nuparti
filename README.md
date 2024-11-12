@@ -1,6 +1,8 @@
 # nuparti
 Esta librería proporciona datos básicos de las partículas elementales del Modelo Estándar y pretende servir para hacer cálculos.
 
+Temas Selectos de Física Computacional III 2025-1
+
 ## Requisitos
 Python 3.6 o superior
 
