@@ -1,10 +1,10 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="particle_model",  
+    name="nuparti",  
     version="0.01",  
     packages=find_packages(),  
-    description="A Python library for modeling elementary particles like electrons, quarks, and neutrinos.",
+    description="Librería de Python para obtener datos y cálculos para partículas elementales",
     long_description=open("README.md").read(),  
     long_description_content_type="text/markdown", 
     author="Julius Hernández",  

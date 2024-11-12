@@ -6,7 +6,9 @@ Python 3.6 o superior
 
 ## Instalación (GitHub)
 git clone https://github.com/tu-usuario/particle-model.git
+
 cd nuparti
+
 pip install .
 
 ## Ejemplo de uso
