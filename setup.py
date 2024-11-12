@@ -7,7 +7,7 @@ setup(
     description="Librería de Python para obtener datos y cálculos para partículas elementales",
     long_description=open("README.md").read(),  
     long_description_content_type="text/markdown", 
-    author="Julius Hernández",  
+    author="Manuel Julius Hernández Martínez",  
     author_email="juliushm@ciencias.unam.mx",
     url="  ",
     classifiers=[

@@ -1,20 +1,24 @@
 # nuparti
-Esta librería proporciona datos básicos de las partículas del Modelo Estándar y pretende servir para hacer cálculos.
+Esta librería proporciona datos básicos de las partículas elementales del Modelo Estándar y pretende servir para hacer cálculos.
 
 ## Requisitos
 Python 3.6 o superior
 
-## Instalación (GitHub)
+## Instalación (GitHub) desde terminal
+
 git clone https://github.com/tu-usuario/particle-model.git
 
 cd nuparti
 
 pip install .
 
-## Ejemplo de uso
+## Ejemplo de uso: Imprime datos de una partícula
+
 from nuparti import ElementaryParticle
 
 print(photon.properties())
+
+
 
 ##
 
