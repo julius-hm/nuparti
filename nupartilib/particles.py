@@ -1,7 +1,7 @@
 # Creamos una superclase, Particles, cuyos atributos son comúnes para las partículas del ME
 class Particle():
   '''Una particula es un constituyente fundamental del universo.
-  Atributos
+  Atributos:
   ----------
 
   c: carga en unidades de [e]
@@ -108,7 +108,7 @@ tau_neutrino = Lepton(
 
 ### Bosones ###
 
-# De forma similar, cremoas una subclase para Bosones
+# De forma similar, creamos una subclase para Bosones
 
 class Boson(Particle):        # Definimos que va heredar de la origiinal Particle
   def __init__(self, charge, mass, position, spin, interaction=None):  # Le damos las instancias, donde Interaction es opcional
