@@ -1,4 +1,4 @@
-# Creamos una superclase, Particles, cuyos atributos son comúnes para las partículas del ME
+# Superclase, Particles, cuyos atributos son comúnes para las partículas del ME
 class Particle():
   '''Una particula es un constituyente fundamental del universo.
   Atributos:
