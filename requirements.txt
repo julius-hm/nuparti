@@ -4,4 +4,4 @@ Se necesita tener instalada la versión de Python 3.6 (o superior).
 
 ## Instalación
 
-No se requieren bibliotecas externas para utilizarla, por el momento.
+Se requieren los módulos: unittest, numpy, os, sys, PyQt5

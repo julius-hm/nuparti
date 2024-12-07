@@ -60,3 +60,4 @@ transformed_fv = fv * lt
 
 ##
 
+Enlace de GitBook: https://ciencias-unam-1.gitbook.io/ciencias.unam/nuparti
