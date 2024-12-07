@@ -1,52 +1,56 @@
-# Superclase, Particles, cuyos atributos son comúnes para las partículas del ME
+# Superclase, Particles, cuyos atributos son comunes para las partículas del ME
 class Particle():
-  '''Una particula es un constituyente fundamental del universo.
-  Atributos:
-  ----------
+    '''Una particula es un constituyente fundamental del universo.
+    Atributos:
+    ----------
+    c: carga en unidades de [e]
+    m: masa en unidades de [MeV/c^2]
+    r: posición en unidades de [metros] (por definir)
+    '''
 
-  c: carga en unidades de [e]
-  m: masa en unidades de [MeV]
-  r: posición en unidades de [metros] (por definir)
-  '''
+    type = 'Particle'
 
-  type = 'Particle'
+    def __init__(self, charge, mass, position):
+        self.c = charge
+        self.m = mass
+        self.r = position
 
-  def __init__(self, charge, mass, position):
-    self.c = charge
-    self.m = mass
-    self.r = position
-    
     # Se definen las propiedades asociadas (self) con una cadena
-  def properties(self): 
-    r = self.r
-    str_properties = f'Type: {self.type}\n' + (
-      f'Charge: {self.c} e\n' +  # Unidades de carga del electrón
-      f'Mass: {self.m} MeV\n' +  # Unidades de masa en reposo (MeV)
-      f'Position: x={r["x"]} , y={r["y"]} , z={r["z"]} '  # Unidades de posición
-      )
-    return str_properties # Importante: Le decimos que regrese tipo, carga, masa y position
+    def properties(self): 
+        r = self.r
+        str_properties = f'Type: {self.type}\n' + (
+            f'Charge: {self.c} e\n' +  # Unidades de carga del electrón
+            f'Mass: {self.m} (MeV/c^2)\n' +  # Unidades de masa en (Mev/c^2)
+            f'Position: x={r["x"]} , y={r["y"]} , z={r["z"]}'  # Unidades de posición
+        )
+        return str_properties
 
 
 ### Leptones ###
 
 # Creamos una subclase para Leptones
+class Lepton(Particle):  # Definimos que va heredar de la original Particle
+    subtype = 'Fermion'
 
-class Lepton(Particle):        # Definimos que va heredar de la origiinal Particle
-  def __init__(self, charge, mass, position, spin, generation, mean_life=None):  # Le damos las instancias, donde Mean Life es opcional
-    Particle.__init__(self, charge, mass, position)    # Llamamos a la clase original
-    self.s = spin                                      
-    self.is_fermion = bool(spin % 1.0)                 # Evalúa si spin es número entero, bool semientero
-    self.is_boson = not self.is_fermion                # fermión si no es bosón                                       
-    self.g = generation
-    self.l = mean_life
+    def __init__(self, charge, mass, position, spin, generation, magnetic_moment=None, mean_life=None):  
+        # Le damos las instancias, donde Mean Life es opcional
+        Particle.__init__(self, charge, mass, position)  # Llamamos a la clase original
+        self.s = spin                                      
+        self.is_fermion = bool(spin % 1.0)  # Evalúa si spin es número entero, bool semientero
+        self.is_boson = not self.is_fermion  # fermión si no es bosón   
+        self.mm = magnetic_moment                                    
+        self.g = generation
+        self.l = mean_life
 
-# Damos las atributos llamando a las de la clase original y se le agerga la de spin, generación y vida media
-  def properties(self):
-    properties_particle = super().properties()  # Usamos super() para llamar al método de la clase base/superclase
-    properties_particle = properties_particle + f'\nSpin: {self.s} ħ'   # Agregamos los demás atributos a la cadena 
-    properties_particle = properties_particle + f'\nGeneration: {self.g}'  
-    properties_particle = properties_particle + f'\nMean Life: {self.l} s' 
-    return properties_particle
+    # Damos los atributos llamando a las de la clase original y se le agrega el de spin, generación y vida media
+    def properties(self):
+        properties_particle = super().properties()  # Usamos super() para llamar al método de la clase base/superclase
+        properties_particle = properties_particle + f'\nSubtype: {self.subtype}'
+        properties_particle = properties_particle + f'\nSpin: {self.s} ħ'   # Agregamos los demás atributos a la cadena 
+        properties_particle = properties_particle + f'\nMagnetic Moment: {self.mm} e*cm'  # Corregido el error de indentación
+        properties_particle = properties_particle + f'\nGeneration: {self.g}'  
+        properties_particle = properties_particle + f'\nMean Life: {self.l} s' 
+        return properties_particle
 
 
 # Definición del electrón
@@ -85,6 +89,7 @@ electron_neutrino = Lepton(
     mass=0,
     position={'x':0, 'y':0, 'z':0},
     spin= 0.5,
+    magnetic_moment= "<0.064e-10",
     generation= "first"
 ) 
 
@@ -94,6 +99,7 @@ muon_neutrino = Lepton(
     mass=0,
     position={'x':0, 'y':0, 'z':0},
     spin= 0.5,
+    magnetic_moment= "<0.064e-10",
     generation= "second"
 ) 
 
@@ -103,6 +109,7 @@ tau_neutrino = Lepton(
     mass=0,
     position={'x':0, 'y':0, 'z':0},
     spin= 0.5,
+    magnetic_moment= "<0.064e-10",
     generation= "third"
 ) 
 
@@ -110,19 +117,24 @@ tau_neutrino = Lepton(
 
 # De forma similar, creamos una subclase para Bosones
 
-class Boson(Particle):        # Definimos que va heredar de la origiinal Particle
-  def __init__(self, charge, mass, position, spin, interaction=None):  # Le damos las instancias, donde Interaction es opcional
-    Particle.__init__(self, charge, mass, position)    # Llamamos a la clase original
-    self.s = spin                                      
-    self.is_fermion = bool(spin % 1.0)                 # Evalúa si spin es número entero, bool semientero
-    self.is_boson = not self.is_fermion                # fermión si no es bosón                                       
-    self.i = interaction
+class Boson(Particle):        # Definimos que va heredar de la original Particle
+    subtype = 'Boson'
+    
+    def __init__(self, charge, mass, position, spin, interaction=None):  
+        # Le damos las instancias, donde Interaction es opcional
+        Particle.__init__(self, charge, mass, position)  # Llamamos a la clase original
+        self.s = spin                                      
+        self.is_fermion = bool(spin % 1.0)  # Evalúa si spin es número entero, bool semientero
+        self.is_boson = not self.is_fermion  # fermión si no es bosón                                       
+        self.i = interaction
 
-# Damos las atributos llamando a las de la clase original y se le agerga la de spin, generación y vida media
-  def properties(self):
-    properties_particle = super().properties()  # Usamos super() para llamar al método de la clase base/superclase
-    properties_particle = properties_particle + f'\nInteraction: {self.i}'   # Agregamos los demás atributos a la cadena  
-    return properties_particle
+    # Damos los atributos llamando a las de la clase original y se le agrega la de spin, interacción
+    def properties(self):
+        properties_particle = super().properties()  # Usamos super() para llamar al método de la clase base/superclase
+        properties_particle = properties_particle + f'\nSubtype: {self.subtype}'
+        properties_particle = properties_particle + f'\nSpin: {self.s} ħ'
+        properties_particle = properties_particle + f'\nInteraction: {self.i}'   # Agregamos los demás atributos a la cadena  
+        return properties_particle
 
 # Definición del Fotón
 photon = Boson(
@@ -181,20 +193,23 @@ higgs = Boson(
 
 # Creamos una subclase para Quarks
 
-class Quark(Particle):        # Definimos que va heredar de la origiinal Particle
-  def __init__(self, charge, mass, position, spin, generation):  # Le damos las instancias
-    Particle.__init__(self, charge, mass, position)    # Llamamos a la clase original
-    self.s = spin                                      
-    self.is_fermion = bool(spin % 1.0)                 # Evalúa si spin es número entero, bool semientero
-    self.is_boson = not self.is_fermion                # fermión si no es bosón                                       
-    self.g = generation
+class Quark(Particle): # Definimos que va heredar de la origiinal Particle
+    subtype = 'Fermion'
+    
+    def __init__(self, charge, mass, position, spin, generation):  # Le damos las instancias
+        Particle.__init__(self, charge, mass, position)    # Llamamos a la clase original
+        self.s = spin                                      
+        self.is_fermion = bool(spin % 1.0)                 # Evalúa si spin es número entero, bool semientero
+        self.is_boson = not self.is_fermion                # fermión si no es bosón                                       
+        self.g = generation
 
 # Damos las atributos llamando a las de la clase original y se le agerga la de spin, generación y vida media
-  def properties(self):
-    properties_particle = super().properties()  # Usamos super() para llamar al método de la clase base/superclase
-    properties_particle = properties_particle + f'\nSpin: {self.s} ħ'   # Agregamos los demás atributos a la cadena 
-    properties_particle = properties_particle + f'\nGeneration: {self.g}' 
-    return properties_particle
+    def properties(self):
+        properties_particle = super().properties()  # Usamos super() para llamar al método de la clase base/superclase
+        properties_particle = properties_particle + f'\nSubtype: {self.subtype}'
+        properties_particle = properties_particle + f'\nSpin: {self.s} ħ'   # Agregamos los demás atributos a la cadena 
+        properties_particle = properties_particle + f'\nGeneration: {self.g}' 
+        return properties_particle
 
 # Definición del Quark Up
 quark_up = Quark(

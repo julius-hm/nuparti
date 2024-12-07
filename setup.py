@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="nuparti",  
-    version="0.01",  
+    version="0.02",  
     packages=find_packages(),  
     description="Librería de Python para obtener datos y cálculos para partículas elementales",
     long_description=open("README.md").read(),  

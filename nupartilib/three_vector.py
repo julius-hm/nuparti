@@ -1,4 +1,4 @@
-#"""Clase ThreeVector del paquete pyforce"""
+"""Clase ThreeVector del paquete"""
 
 import numpy as np
 

@@ -20,9 +20,13 @@ class FourVector:
         AR = lorentz_transform.rep1(2) # Representaciones para la transformación
         AL = lorentz_transform.rep2(2)
 
-        # Matriz V para la transformación de Lorentz para los FourVectors
-        V = np.array([[-self.vector[1] + I * self.vector[2], self.vector[3] + self.vector[0]],
-                      [self.vector[3] - self.vector[0], self.vector[1] + I * self.vector[2]]], dtype=complex)
+        # Matriz V para la transformación de Lorentz para FourVectors
+        V = np.array([
+            [-self.vector[1] + I * self.vector[2], self.vector[3] + self.vector[0], 0, 0],
+            [self.vector[3] - self.vector[0], self.vector[1] + I * self.vector[2], 0, 0],
+            [0, 0, self.vector[1] + I * self.vector[2], self.vector[3] + self.vector[0]],
+            [0, 0, self.vector[3] - self.vector[0], self.vector[1] + I * self.vector[2]]
+        ], dtype=complex)
 
         # Aplicar la transformación utilizando las representaciones
         VP = AR @ V @ AL.T
